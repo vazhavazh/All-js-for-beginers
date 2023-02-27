@@ -658,12 +658,270 @@ console.log(c); // 20
     ОПЕРАТОРЫ КОРОТКОГО ЗАМЫКАНИЯ
    </h2>
    <h2>Operator &&</h2>
-
+   expression1 && expression2 // each operand is expresssion and returns value
+// If expression 1 is falsy:
+// 1) expression 2 will be ignored
+// 2) return result of expression 1 as reult of expression1 && expression2
+// If expression 2 is false while expression 1 is true:
+// 1) return result of expression 2 as reult of expression1 && expression2
+// if expression 1 and expression 2 true than return last one so expression 2
    
    <p>
-    
+    <h2>Operator ||</h2>
+    expression1 || expression2 // each operand is expresssion and returns value
+// If expression1 is true:
+// 1) expression2 will be ignored
+// 2) return result of expression1
+
+&& has priority upon || so 
+a && b || c && d same like (a && b) || (c && d)
    </p>
 </div>
+<div>
+    <h2>Operator ... </h2> Can be spread or rest
+    <p>
+        const button = {
+    width: 200,
+    text: 'Good'
+}
+
+const greenButton = {
+    ...button,
+    color: 'green'
+}
+// console.dir(greenButton) //  color: "green" // order inside of objject has no difference
+                         //    text: "Good"
+                         //    width: 200
+                         //    [[Prototype]]: Object
+//---------------------------------------------------------------------------------------------------
+const button1 = {
+    width: 200,
+    text: 'Good',
+    color: 'Brown'
+}
+
+const greenButton1 = {
+    ...button1,
+    color: 'green'
+}
+// console.dir(greenButton1)  // //  color: "green" // order inside of objject has BIG diference during usage of operator '...'
+                            // like this case I have overwritten value of key color, cause destructurisation of object button1
+                            // is situated before new object's key color with value 'green'
+                         //    text: "Good"
+                         //    width: 200
+                         //    [[Prototype]]: Object
+
+//---------------------------------------------------------------------------------------------------
+const button2 = {
+    width: 200,
+    text: 'Good',
+    color: 'Brown'
+}
+
+const greenButton2 = {
+    color: 'green',
+    ...button2
+}
+console.dir(greenButton2) // //  color: "brown" // order inside of objject has BIG diference during usage of operator '...'
+                            // like this case I have not overwritten value of key color, cause destructurisation of object button1
+                            // is situated after new object's key color with value 'green'
+                         //    text: "Good"
+                         //    width: 200
+                         //    [[Prototype]]: Object
+    </p>
+<h2>// Connecting objects with "spread operator" ...</h2>
+<p>
+    const buttonInfo = {
+text: 'Interest text'
+}
+
+const buttonStyle = {
+    width: 130,
+    height: 40,
+    color: 'orange'
+}
+
+const allButtonInfo = {
+    ...buttonInfo,
+    ...buttonStyle
+}
+
+console.log(allButtonInfo); //{text: 'Interest text', width: 130, height: 40, color: 'orange'}
+                            // If objects which have same key(property), they will be overwritten by the value of the object at the end.
+</p>
+</div>
+<div>
+    <h2>String concatenation</h2>
+    <h3>Operator + for concatenation</h3>
+    <p>
+        const banner = "Hello " + "World"
+console.log(banner); // Hello World string // backspace after hello can be replaced before world//
+
+
+const hello = "Hello"
+const vazha = "Vazha"
+const greeting = hello + " " + vazha
+console.log(greeting); // Hello Vazha
+    </p>
+    <h3>Template string literal(Шаблонные строки)</h3>
+    <p>
+        const myName = "Vazha"
+const myCity = "Kyiv"
+console.log(`My name is ${myName}. I live in ${myCity}.`) // very comfortable to use, inside of variables can be everything.//
+    </p>
+</div>
+<div>
+    <h2>Functional expression (Функциональные выражения)</h2>
+    <h3>Difference between function and functional expression is absence name inside functional expression</h3>
+    <p>
+        So functional expression is always anonymous.
+        // Declarated function
+// Declarated function
+function myFunction(a, b) {
+    let c
+    a = a + 28
+    c = a + b
+    return c
+}
+// Functional expression
+const functionExpression = function(a, b) { // no identefier after word function so it is anonymous// only able inside variable
+    let c
+    a = a + 28
+    c = a + b
+    return c
+}
+console.log(functionExpression(-2, 4)); // 30
+//Now fuction expression can be called by name of variable 'const functionExpression'
+<img src="./pictures/Function declaration vs Function expression.png" alt="">
+    </p>
+    <h3>Function expression inside calling of another function(callback)</h3>
+    <p>
+        setTimeout(function () {
+    console.log('Hello');
+}, 1000) //function expression console.log('Hello') will called after 1 second 
+        // in this case better use functional expression cause we dont need name of this function or we willnot reuse it separately
+    </p>
+    <h2>Arrow function</h2>
+    <p>
+        //Arrow function is function expression and it also has not name.
+        //Arrow function dont need word fuction only need  "=>" that is why they are "arrow"
+const arrowFn = (a, b) => {
+    let c;
+    a = a + 28
+    c = a - b
+    return c
+}
+// console.log(arrowFn(2, 30)) // 0
+//---------------------------------------------------------------------------------------------------
+//Arrow function with out parameters
+let c = 2;
+console.log(`Variable "c" before arrowFnWithOutParams = ${c}`); // variable c before arrowFnWithOutParams = 2
+const arrowFnWithOutParams = () => {
+    c = c + 10
+    return c
+}
+arrowFnWithOutParams()
+console.log(`Variable "c" after arrowFnWithOutParams = ${c}`); // variable c after arrowFnWithOutParams = 12
+    </p>
+    <h3>Main reason why better use function expression  is in variable, that assign with word 'const', 
+        so you will not have opportunity to change it, it will give error</h3>
+        <h2>Arrow Fn as callback</h2>
+        <p>
+            setTimeout(() => {
+    console.log(`This is arrow function's body`);
+}, 2500)
+    // String `This is arrow function's body` will shown in console after 2500ms
+    //(2500 is delay in 2nd argument of function setTimeout)
+        </p>
+        <h3>Rules: How make arrow function syntax shorter and more compact</h3>
+        <p>
+            1) If arrow function have only one parameter, than you dont need using round brackets(круглые скобки) with them
+            const arrowFn = a => {
+    console.log(`This is body of function expression with one parameter a`);
+                a = a + 2
+                return a
+                            }
+        // But still I must use instruction return, in other case function will return undefined
+
+            2) If arrow function's body made from one expression  (MOST POPULAR)
+            I can write this function with out curly braces(фигурных скобок)
+            const arrowFn = ((a, b) => a + b) // In this case after "=>" i dont need to write curly braces(фигурные скобки),
+            // cause a + b is only one expression and here is also inserted automaticly return
+            // IN ENGLISH CORRECTLY TO SAY THAT IT IS "implicit return"(Неявный возврат).
+            
+        </p>
+</div>
+    <h2>Default function parameters</h2>
+    <p>
+      function multByFactor(value, multipliyer = 1) {  // 2nd parameter multipliyer = 1 by default 
+    return value * multipliyer
+}
+console.log(multByFactor(5, 5)); // 25
+// we have overwritten value of multipliyer  = (5), that by default = 1
+
+//But when we call function with default parameter and we have not sent the argument to it's paramter,
+//this parameter will take value from default value
+
+console.log(multByFactor(5)); // 5
+// we havenot overwritten value of multipliyer,cause we have not given argument to parameter,
+//As by default parameter multipliyer = 1.It automatically takes this value as argument
+// so for this funtion same result will give
+console.log(multByFactor(5, 1)); // 5
+
+// ===============================================================================================
+// variant with anonymous function expression
+const multByFactor1 = function (value, multipliyer = 1) {
+    return value * multipliyer
+}
+console.log(multByFactor1(5, 5)); // 25
+console.log(multByFactor1(5)); // 5
+
+// ===============================================================================================
+// variant with arrow function (expression) !MOST POPULAR!
+const multByFactor2 = (value, multipliyer = 1) => value * multipliyer
+console.log(multByFactor2(5, 5)); // 25
+console.log(multByFactor2(5)); // 5
+
+//=========================================================================================================
+const newPost = (post, addedAt = Date()) => ({ //function expression assign by variable newPost
+                                                //take 1st parametr post which will be object
+                                                // addedAt will be always default value as result of global function Date()
+                                                // Date() will put there full date in string format whhich will show 
+                                                // exact date when function Date() has been called
+                                                //'Mon Feb 27 2023 14:55:14 GMT+0200 (Восточная Европа, стандартное время)'
+                                                //so we will need put in function expression newPost only one argument object
+                                                 //To receive copy of puted object inside of function newPost
+                                                 //newPost was made arrow function and it uses "implicit return"(Неявный возврат)                                               
+    ...post,                                     // and spread operator with first parametr to make copy from it (copy of object)
+    addedAt,     // and put new key "addedAt" with default value = // exact date when function Date() has been called in string format
+                // cause our addedAt second parametr have the same name as our new object
+})              //so this function take object make from it copy and add one more key addedAt with string of date of calling newPost()
+const firstPost = {
+    id: 25,
+    author: "I"
+}
+
+console.log(newPost(firstPost))//{id: 25, author: 'I', addedAt: 'Mon Feb 27 2023 15:21:20 GMT+0200 (Восточная Европа, стандартное время)'}
+const result = newPost(firstPost)
+console.log(result)// {id: 25, author: 'I', addedAt: 'Mon Feb 27 2023 15:22:35 GMT+0200 (Восточная Европа, стандартное время)'}
+//Time shows online(alwasy change acc to when function date called inside function expression newPost)
+// Date() not static value
+
+//---------------------------------------------------------------------------------------------------------
+//Variant with Explicit return (ЯВНЫЙ ВОЗВРАТ)//
+//instruction return written inside of arrow function' body
+const newPost1 = (post, addedAt = Date()) => {
+    const newPost = {
+        ...post,
+        addedAt
+    }
+    return newPost
+} 
+const result1 = newPost1(firstPost)
+console.log(result1);// { id: 25, author: 'I', addedAt: 'Mon Feb 27 2023 15:43:16 GMT+0200 (Восточная Европа, стандартное время)' }
+
+    </p>
+    
     </div>
     <script type="module" src="./index.js"></script>
 </body>
