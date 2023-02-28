@@ -414,7 +414,7 @@ sum(a, b) // 5      // a and b are arguments during call of function
 }
 console.dir(myFunction); // whe can check which properties have function
 
-// If function dont have instruction for returning it will return undefined
+// If function dont have statement for returning it will return undefined
 console.log(myFunction(2, 4)); // 7
 const result = myFunction(2, 4)
 console.log(result); // 7
@@ -841,7 +841,7 @@ console.log(`Variable "c" after arrowFnWithOutParams = ${c}`); // variable c aft
                 a = a + 2
                 return a
                             }
-        // But still I must use instruction return, in other case function will return undefined
+        // But still I must use statement return, in other case function will return undefined
 
             2) If arrow function's body made from one expression  (MOST POPULAR)
             I can write this function with out curly braces(фигурных скобок)
@@ -909,7 +909,7 @@ console.log(result)// {id: 25, author: 'I', addedAt: 'Mon Feb 27 2023 15:22:35 G
 
 //---------------------------------------------------------------------------------------------------------
 //Variant with Explicit return (ЯВНЫЙ ВОЗВРАТ)//
-//instruction return written inside of arrow function' body
+//statement return written inside of arrow function' body
 const newPost1 = (post, addedAt = Date()) => {
     const newPost = {
         ...post,
@@ -1175,7 +1175,345 @@ console.log(firstFruit); // "apple"
 console.log(lemon4ik); // "lemon"
 console.log(sigarette); // "blueberry"
 </p>
+<h4>Destructuring in function(POPULAR)</h4>
+<p>
+    const userProfile1 = {
+    name: "Vazha",
+    folowersQuantity: 33,
+    isHeOk: true
+}
+
+const userProfile2 = {
+    name: "Olga",
+    folowersQuantity: 0,
+    isSheOk: true
+}
+
+//I am intersted only this property of object which will receive my function
+const userFolowerInfo = ({ name, folowersQuantity }) => {  // now inside of this fanctions i have asses to key of object
+                                                            // if he have same name of key as name of this parameter
+    
+    if (!folowersQuantity) {                                    // this will check that object's folowersQuantity
+                                                                //  have key folowersQuantity and it's value > 0
+                                                               
+        return `User ${name} has no friends`
+    }
+    return `User ${name} has ${folowersQuantity} connection in linkEdIn` 
+}   
+
+console.log(userFolowerInfo(userProfile1)); // "User Vazha has 33 connection in linkEdIn"
+console.log(userFolowerInfo(userProfile2));  // "User Olga has no friends"
+</p>
     </div>
+    <div>
+        <h2>Conditional statements(УСЛОВНЫЕ ИНСТРУКЦИИ)</h2>
+        <h3>
+            if
+            if...else
+            switch
+            ternary operator (this is expression)
+        </h3>
+        <h4>if</h4>
+        <p>
+            // if (condition) {
+//     // Block(scope ВНУТРИ ФИГУРНЫХ СКОБООК) of code which will executed only one time
+//     // if this condition will return true value
+// }
+let value = 28;
+
+if (value > 10) {
+    value += 20
+}
+
+console.log(value); // 48
+
+====================================================================================================================
+<h3>POPULAR  "if(!something)</h3>
+const person = {
+    age: 28
+}
+
+if (!person.name) {  // (!undefined === true) // true
+    // Other operations if object person has not key(property) name
+    // Or value of key(property) name is false
+    console.log(`Ты неправильный, у тебя нет имени`); // `Ты неправильный, у тебя нет имени`
+    
+}
+        </p>
+        <h4>if...else</h4>
+<p>
+    // if (condition) {
+//     //Block scope of code which will executed ONCE if condtion is true
+// } else {
+//     // Block scope of code which will executed if condtion is false
+// }
+// //Executed will only one scope first or second
+
+let value = 28;
+
+if (value < 3) {   //this condition is false
+    value += 10  // this part was ignored
+} else {
+    value -= 40
+}
+
+console.log(value); // -12 // 28 - 40 = 12 cause 28 > 3, so if condition is not true
+</p>
+<h4>if else if</h4>
+<p>
+    if (condition1) {
+     //Block scope of code which will executed ONCE if condtion1 is true
+} else if (condition2) {
+     //Block scope of code which will executed ONCE if condtion2 is true // as condition1 is false
+} else {
+    //  Block scope of code which will executed ONCE if previous conditions were false // as condition1 and condition2 are false
+  
+}
+</p>
+<h4>more preferable when statement if sepatated empty lines with out else, for example</h4>
+<p>
+    if (condition1) {
+    //Block scope of code which will executed ONCE if condtion1 is true
+}
+
+if (condition2) {
+    //Block scope of code which will executed ONCE if condtion2 is true
+}
+
+if (condition3) {
+    //Block scope of code which will executed ONCE if condtion3 is true
+}
+</p>
+<p>
+    // const age = 28 // and now we can change  const value and recieve in console.log what we want
+
+// if (age >= 18) {
+//     console.log(`Is adult`);
+// } else if (age >= 12) {
+//     console.log(`Is teenager`);
+// } else {
+//     console.log(`Is child`);
+// }
+
+
+//=========================================================================================================
+// example with only if
+//Need include that second condition also first condition to make this statement work correctly
+
+const age = 28
+
+if (age >= 18) {
+    console.log(`Is adult`);
+}
+
+if (age >= 12 && age < 18) {
+    console.log(`Is teenager`);
+}
+
+if (age < 12) {
+    console.log(`Is child`);
+}
+</p>
+<h3>if in functions POPULAR</h3>
+<p>
+const sumPositiveNumber = (a, b) => {
+    if (typeof a !== 'number' || typeof b !== 'number') {
+        return `One of the arguments is not a number`;
+    }
+
+    if (a <= 0 || b <= 0) {
+        return `Numbers must be positive`
+    }
+
+    return a + b
+}
+
+console.log(sumPositiveNumber("Vazha", 50)); // 'One of the arguments is not a number'
+console.log(sumPositiveNumber(2, -50)); // 'Numbers must be positive'
+console.log(sumPositiveNumber(0, 25)); // 'Numbers must be positive'
+console.log(sumPositiveNumber(2, 3)); // 5
+</p>
+<h3>statement SWITCH() like if...else if</h3>
+<p>
+    switch (expression) {  
+    case A:
+        // Operation if expression === A
+        break;
+    case B:
+        // Operation if expression === B
+        break;
+    case C:
+        // Operation if expression === C
+        break;
+    default:
+        // Default operations
+}
+
+//===============================================================================================
+
+const month = 2;   
+
+switch (month) {
+    case 12:                   // after reserved word 'case', number 12, compare with value of variable 'month' 
+        console.log('December');
+        break
+    case 1:
+        console.log('January');
+        break
+    case 2:
+        console.log('February');
+        break
+    default:
+        console.log('This is not winter month');  // al other case
+}
+</p>
+<h3>ternary operator</h3>
+<h4>-ternary operator has three operands
+    -construction with ternary operator is expression cause iy is returns value
+</h4>
+<p>
+// Condition ? Expression1 : Expression2 // '? and :' are parst of syntax of ternary operator
+
+// "Condition" is also expression
+// so if condition return true, this construction,  will return value of Expression1 as finish result
+// and if condition return false, this construction,  will return value of Expression2 as finish result
+
+//Inside of ternary operator must be ! expressions ! not statements
+
+//============================================================================================================================
+// //example
+
+// // const value = '';  //Value is false
+// // const value = 0; //Value is false
+// const value = 28; //Value is true
+// const value = -10; // Value is true
+// value
+//     ? console.log('Value is true')
+//     : console.log('Value is false')
+
+//================================================================================================================
+
+//example2
+
+// const value1 = 28
+// const value2 = 3
+
+// value1 && value2
+//     ? myFunction1(value1, value2) //my function will executed if value1 and value2 both true values
+//     : myFunction2()
+
+//================================================================================================================
+
+//example3
+
+let value = 10
+console.log(value >= 0 ? value : -value) // 11
+
+value = -5
+const result = value >= 0 ? value : -value
+console.log(result) // 5 //cause second case add '-' and '--' give '+'
+//result of ternary operator  we can put in varibale
+
+</p>
+    </div>
+    <div>
+        <h2>Loop(ЦИКЛ)</h2>
+        <h3>Loops are a way to repeat the same code multiple times.
+            All loops are Statements
+        </h3>
+        <h3>Loop types:</h3>
+        <h4>
+            for,
+            fore...in,
+            while,
+            do...while,
+            for...of... 
+        </h4>
+        <h3>for</h3>
+        <p>
+            //for ( begining statement or initialization(начальная инструкция)
+//condition(Условие);
+//itteration action(иттерационное действие) or post - expression) {
+// statements
+//}
+
+// ===========================================================================
+
+// for (initialization; condition; itteration action(operation)) {
+//     // statements executed on each itteration
+// }
+// they all statemnts in general and divided with ';'
+
+//=======================================================================================
+//with out loop
+
+let index = 0
+console.log(index); // 0
+index++
+console.log(index); // 1
+index++
+console.log(index); // 2
+index++
+console.log(index); // 3
+index++
+console.log(index); // 4
+
+//=======================================================================================
+
+for (let index = 0; index < 5; index++) { // loop starting with let variable index = 0;
+                                          // next step variable index will be compared with number 5
+                                          // as index with value 0 less than number five // so condition is executed
+                                        // and we get to step itteration action in which we add number 1 to value of variable index
+                                        //cause index++ is same like index = index + 1
+                                        // loop will working (his body will working) untill condition is true, 
+                                        //in our case untill index < 5
+                                        // so when index become 5 condition will not executed and 
+                                        //we will not recieve access to loop's body
+                                        
+    console.log(index);     //0
+                            //1
+                            //2
+                            //3
+                            //4
+}
+
+
+        </p>
+        <p>
+        const myArray = ['first', 'second', 'third']
+
+// for (let i = 0; i < myArray.length; i++) {
+//     const element = myArray[i];
+//     console.log(element); 
+   
+// }
+                            // 'first'
+                          // 'second'
+                          // 'third'
+                          // using square brackets we have recieved i as index of array myArray
+                          // with forEach we can get exactly each element of array and if we need to index 
+//========================================================================
+// with forEach (BEST VARIANT)
+myArray.forEach((el, idx) => { //in method forEach I put callback function which will executed for each elem of array
+                               // this function recieve two arguments can three but no need here
+                                // first is each element of array
+                                // second is each index of array
+    console.log(el, idx);       // execute this block of code each time as how many elements in array
+})
+
+                                // first 0
+                                // second 1
+                                // third 2
+
+//=============================================================================
+        </p>
+    </div>
+    <h3>loop while need to return cause it can become Infinity</h3>
+    <h4>do...while</h4>
+    <p>
+    
+    </p>
+
     </div>
     <script type="module" src="./index.js"></script>
 </body>
