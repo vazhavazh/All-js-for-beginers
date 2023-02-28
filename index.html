@@ -921,7 +921,261 @@ const result1 = newPost1(firstPost)
 console.log(result1);// { id: 25, author: 'I', addedAt: 'Mon Feb 27 2023 15:43:16 GMT+0200 (Восточная Европа, стандартное время)' }
 
     </p>
-    
+    <div>
+        <h2>"Error handling in JavaScript"(Обработка ошибок)</h2>
+        <p>const fnWithError = () => {
+    throw new Error("Some error from me")
+}
+fnWithError() // Uncaught Error: Some error from me // interpritator will not go after this code's string
+console.log("Continue..."); // this code will not run cause error</p>
+<h2>TRY/CATCH</h2>
+<p>
+    const fnWithError = () => {
+    throw new Error("Some error from me")
+}
+// fnWithError() // Uncaught Error: Some error from me // interpritator will not go after this code's string
+// console.log("Continue..."); // this code will not run cause error
+
+// TRY/CATCH
+//try/catch is special syntax which include two blocks of code
+try {
+     // Here shut be putted part of code where are the potential errors can be.
+    //If there is mistake here we will jump to second block catch
+} catch (error) {
+    // This part of code will executed if block try has error
+    // parametr error will give us assec to error and we will have opportunity to check it in console or save on remote server e.t.c
+}
+
+try {
+    fnWithError() // now this code will execute as it is in try block
+                // error of this part of code will sent as argument to block catch
+} catch (error) {
+    console.error(error); // error catched and look's like Uncaught Error
+    console.log(error.message); //"Some error from me"// error is object
+
+}
+console.log("Continue...") // code wil executed as usual (with out any errors) cause of try/catch
+
+//It is higly recomended to set part of codes which can broke,inside try/catch blocks, to avoid full script breakage.
+</p>
+    </div>
+    <div>
+        <h2>Statement in JS (ИНСТРУКЦИИ)</h2>
+        <p>There are: expression(выражение), statement, and expression statement in JS
+           <h3> Expression always return value.Can be expression statement</h3>
+            <h3>Statement make some operations.Statement can not be transformed into the expression </h3>
+            <p>
+                example of statements: 
+                let a; // statement, variable a only declarated
+// each statement better end with " ; " also separate them with empty line
+// or at least keep them on different lines
+const b = 5;
+
+if (a > b) {                  //this if does not return anything  so this is statement
+    console.log("a is bigger"); 
+}
+
+for (let i = 0; i < 5; i++) {  
+    console.log(i);
+}
+
+            </p>
+        </p>
+        <p>example of expression statements:
+            a = a + 3; 
+
+            d = 'Hello ' + 'World';
+
+                myFn(a, c);
+        </p>
+        difference:
+        function myFn(a) {
+    console.log(a);
+}                       // statement
+const b = true;         //expression statement
+let c = 10;             //expression statement
+
+myFn(4 + 7) // 11       // expression
+myFn(b) // true         // expression
+myFn(c = c + 3) // 13  // expression
+// myFn(c = c + 3;) // faile try like statement //Uncaught SyntaxError: missing ) after argument list
+// myFn(let d) //// faile try like statement// index.js:11 Uncaught SyntaxError: Unexpected strict mode reserved word 
+    </div>
+    <div>
+        <h2>ARRAYS</h2>
+     <h3>Array is an object with numeric property names</h3> 
+     <p>// HOW CREATE ARRAY
+const myArray = [2, 5, 9, 28];
+console.log(myArray); // [2, 5, 9, 28] array
+const copyOfMyArray = new Array(2, 5, 9, 28)
+console.log(copyOfMyArray); // // [2, 5, 9, 28] array
+const myArray1 = new Array(2, 5, 9, 28, 1)     //via creation new instance(экземпляр) of a class
+console.log(myArray1); // [2, 5, 9, 28, 1] array
+
+// For objects the same
+//as array is object but instead of key(property) and value it has index and elements //
+//in array order is very important and can be used to find element
+
+console.log(myArray.length); // 4 // .length give "how many elements in array in number"
+console.log(myArray1.length); // 5 // 
+console.log(myArray === copyOfMyArray); // false //an array is not equal to another array because they occupy different memory cells cause//
+//they are objets and reference to different objects and they created in different time
+//but if 
+const myArray3 = myArray
+console.log(myArray3 === myArray); // true // now this links refernced to one object</p>
+    </div>
+    <div>
+        <h2>Array vs Object</h2>
+        <p>
+            array vissualy similar to object but have different prototype "__proto__" so have different methods to work
+            <img src="./pictures/Array vs Obj.png" alt="">
+
+            const myArray = [1, 3, 7, 28]
+console.log(myArray);
+
+const myObj = {
+    0: 1,
+    1: 3,
+    2: 7,
+    3: 28,
+}
+console.log(myObj); // don't have lenth
+        </p>
+        <h3>How get el from array</h3>
+        <p>
+            const myArray = ['Vazhiko', 28, true]
+console.log(myArray[0]); // 'Vazhiko // instead of dots as in object we use square brackets and put index of searching el
+console.log(myArray[1]); // 28
+console.log(myArray[2]); // true
+console.log(myArray.length); // 3 // quantity of elems in array // array length//
+myArray.length = 7
+console.log(myArray.length); // 7
+console.log(myArray); // ['Vazhiko', 28, true, empty × 4]
+myArray.length = 3
+console.log(myArray); // ['Vazhiko', 28, true]
+
+const myArray = [1, 2, 3, 4]
+console.log(myArray); // [1, 2, 3, 4]
+console.log(myArray.length); //4
+
+// Change el of array
+//index start counting from 0
+myArray[2] = 'abcd' // instead of element with index[2], (it is number 3), we assign string 'abcd'
+console.log(myArray); // [1, 2, 'abcd', 4]
+
+//Adding elem in array
+//as we know length of array so last index will be always value = length - 1 // myArray.length = 4
+//last index of myArray = 4 - 1 = 3//
+myArray[4] = 'new el of array'
+console.log(myArray); // [1, 2, 'abcd', 4, 'new el of array']
+console.log(myArray.length); // 5
+
+//In general to work with arrays we will use Array prototype methods or higher-order function (Функции высшего порядка)
+        </p>
+        <h2>Main methods for working with array</h2>
+        <h3>push</h3>
+        <h4> Method"push" add element at the end of array</h4>
+        <p>
+            const myArray = [1, 2, 3, 4] 
+myArray.push(5)       // "push" add element at the end of array
+console.log(myArray); // [1, 2, 3, 4, 5]
+        </p>
+        <h3>pop</h3>
+        <h4>Method "pop" delete el from the end of array</h4>
+        <p>
+            const myArray = [1, 2, 3, 4, 5]
+myArray.pop()
+console.log(myArray); // [1, 2, 3, 4]
+const removedEl = myArray.pop() // method POP also can return value which he has deleted
+console.log(removedEl); // 4
+console.log(myArray); // [1, 2, 3]
+        </p>
+        <h3>UNSHIFT</h3>
+        <h4>Method unshift is adding element at beging of array, all other elements will be reordered automtically</h4>
+        <p>
+            const myArray = [1, 2, 3]
+myArray.unshift("vazha")
+console.log(myArray); // ['vazha', 1, 2, 3]
+myArray.unshift(true) 
+console.log(myArray); // [true, 'vazha', 1, 2, 3]
+        </p>
+        <h3>SHIFT</h3>
+        <h4>Method unshift deletes first element of array after elemnts wil reordered automatically</h4>
+        <p>
+            const myArray = [1, 2, 3, 4]
+myArray.shift()
+console.log(myArray);//[2, 3, 4]
+const deletedEl = myArray.shift()
+console.log(deletedEl); // 2 //also return elem which have been deleted
+console.log(myArray); // [3, 4]
+        </p>
+        <h4>Methods:
+            -pop
+            -push
+            -shift
+            -unshift are mutate methods, so they will change array(obj)
+        </h4>
+        <h2>forEach()POPULAR</h2>
+        //forEach is using to iterate over elements make some operations with them
+        //it doesnot return anything
+const myArray = [1, 2, 3]
+console.log(myArray);
+
+myArray.forEach(el => console.log(el * 2)) // method forEach will executed callback function for each element of array (loop цикл)//
+// 2, 4, 6
+console.log(myArray); // [1, 2, 3] no change
+<h2>Map</h2>
+<h3>Map also wait as argiment claback function but is returns always array back with same 
+length</h3>
+<p>
+    const myArray = [1, 2, 3]
+const newArray = myArray.map(el => el * 5) // [5, 10, 15]
+console.log(myArray); // [1, 2, 3]
+console.log(newArray); // [5, 10, 15]
+//New elemnts of array from map are created as each result of callback function
+// for each element of array myArray(on which method map called)
+// Original array not changing (myArray)
+</p>
+    </div>
+    <div>
+        <h2>Destructuring</h2>
+<h3>Destructuring assignment is a special syntax that allows us 
+    to “unpack” arrays or objects into a bunch of variables(or one variable), 
+    as sometimes that's more convenient(comfortable).
+</h3>
+<h4>Object destruring</h4>
+<p>
+const userProfile = {
+    name: "Vazha",
+    age: 28,
+    hasSignedAgreement: true
+}
+
+const { hasSignedAgreement } = userProfile // we can recieve all elems or which we need
+const { name, age} = userProfile // now we have const variables:
+                                        // name, age, hasSignedAgreement with values:
+                                        // "Vazha", 28,  true.
+                                        //name of variables must be same this is main condition
+                                      
+console.log(name); //'Vazha'
+console.log(age); // 28
+console.log(hasSignedAgreement); // true
+</p>
+<h4>Array destructuring</h4>
+<p>
+    //As array is also object but with digital property called index
+//In array destructuring name of variables inside braces is not important
+// but "in which order they are situated" is main condition
+//And here we  change curly brackets to square ones
+
+const fruits = ["apple", "lemon", "blueberry"]
+
+const [firstFruit, lemon4ik, sigarette] = fruits
+console.log(firstFruit); // "apple"
+console.log(lemon4ik); // "lemon"
+console.log(sigarette); // "blueberry"
+</p>
+    </div>
     </div>
     <script type="module" src="./index.js"></script>
 </body>
