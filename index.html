@@ -1509,12 +1509,350 @@ myArray.forEach((el, idx) => { //in method forEach I put callback function which
         </p>
     </div>
     <h3>loop while need to return cause it can become Infinity</h3>
-    <h4>do...while</h4>
     <p>
+        let i = 0
+
+while (i < 3) {
+    console.log(i);
+    i++
+}
+
+// while i < 3 block of code will be exected
+// code in brackets after while can executed, or can not executed,
+// then body of this instruction never executed
+    </p>
+    <h4>do...while</h4>
+
+    <p>
+    // do {
+//     // Code which will executed on each itteration
+// } while (condition);
+// // now "body of while" is above, so this body will executed at least one time
+
+let i = 0
+do {
+    console.log(i);
+    i++
+} while (i < 5);
+
+//0
+//1
+//2
+//3
+//4
+    </p>
+    <p>
+    let i = 10
+do {
+    console.log(i)
+    i++
+} while (i < 5) // 10 // statement while is false, block do executed one time,
+                      // so i will be shown i console with it's value 10   
+    </p>
+<h3>for...in</h3>
+<p>
+    // for (const key in object) {
+// // Operations with each obj's key(property)
+// // to get key's value  - Object[key]
+//     // need use with :
+// //     if (Object.hasOwnProperty.call(object, key)) {
+// //     const element = object[key];
+// // }
+//     // othey way this loop iterete not only over object's keys, but also prototype's keys
+// }
+
+// const myObj = {
+//     x: 'Vazha',
+//     y: true,
+//     z: 28
+// }
+
+// for (const key in myObj) {
+//     console.log(key, myObj[key]); // key is each key(property) of obect myObj
+//                          // myObj[key] is value of each key(property) of obect myObj
+// }
+//x Vazha
+//y true
+//z 28
+//=====================================================================================
+//forEach for Objects
+
+const myObj = {
+    x: 'Vazha',
+    y: true,
+    z: 28
+}
+
+Object.keys(myObj).forEach(key => {
+    console.log(key, myObj[key]);
+})
+
+//forEach for Objects with only values
+
+Object.values(myObj).forEach(value => {
+    console.log(value);
+})
+<h3>for transforming object into array and work with forEach we can use Object.keys() and Object.values</h3>
+<img src="./pictures/Obect.keys.png" alt="">
+<img src="./pictures/Object.values().png" alt="">
+</p>
+<h3>for...of</h3>
+const myArray = [1, 4, 5]
+// console.dir(array);
+// for (const element of Iterable) { // itterable is any substance which is iterable : this mean, that this object can be iterate
+//                                     // cause this object or it's prototype chain has key(property) - (Symbol.iterator)
+                                  
     
+// }
+
+const someArrayEntries = myArray.entries(); //call method entries() return array of key(property), as for key...in loop, 
+                                            // but don't get into prototype chain
+
+someArrayEntries.toString();           // "[object Array Iterator]"
+console.dir(someArrayEntries);          // Array Iterator
+someArrayEntries === someArrayEntries[Symbol.iterator]();    // true // this mean that this substance is iterable
+
+//==========================================================================================================
+// for of in string
+const myString = 'Vazha'
+
+for (const letter of myString) { // will be 5 itteration according to myString.length
+    console.log(letter);
+}
+
+//V
+//a
+//z
+//h
+//a
+<h3>If we have object better conver it into array with Object.keys or Object.values and then work with array using map or for each</h3>
+
+
+<h2>MODULES</h2>
+<h3>Modules give oportunity to avoid dublicating code and destructurisate big js script 
+    on many smalls functions which are more usefull.</h3>
+    <h4>export/import syntax appeared in ES6</h4>
+    <p>
+        exported file where function: 
+        <img src="./pictures/modules-exported-function.png" alt="">
+
+        file js where exported function will imported
+        <img src="./pictures/modules.png" alt="Modules">
+        Even you can change name of function because scope is all js file
+        example with another names for this function:
+        <img src="./pictures/modules with changed function's name.png" alt="">
+
+        Node js can work with modules from v >= 13.
+        Modules shut be reusable.
+        All exports shut be at the end.
+        All imports at the top.
+        Better use export default
+        See folde modules and pictures
+    </p>
+    <div>
+        <h2>Class and prototype</h2>
+        <h3>class is ES 6</h3>
+        <h4>We use classes to create "sample" from some obj.
+            Classes integred in JS to become object-oriented program langueage </h4>
+            <p>
+                Class give oportunity to create prototype for different objects.
+                Instances(экземпляры ) are created based on prototypes
+                Each instance have it's own methods and properties
+                Instance can adopt properties or included it's own
+                class Comment { //pascal case for class
+//body of class 
+    constructor(text) {
+        this.text = text  // variable "this" indicates on class's instance
+                        
+        this.votesQty = 0
+    }
+    upVote() {              // this is performed cause when we will create
+        this.votesQty += 1 // new instance will have oportunity to increase it' own
+                            // property(key) - votesQty
+    }
+}
+// method constructor called only when I create new instance of exact object
+
+//So during creation of new instance (it will be object)
+//which will have two properties(keys) "text:" and "votesQty:"
+// with values = text(something that will given
+//as argument during executing method constructor) // as default
+// and 0 // as default
+
+// To create new instance of class we need reserved word - new.
+
+const firstComment = new Comment('First Comment') // "new Comment('First Comment')"
+// call function "constructor(text) with argument as parameter ('First Comment')
+console.log(typeof firstComment); // object
+console.log(firstComment); // { text: "First Comment", votesQty: 0 }
+
+//this new object will adopt all methods of class
+// also this class will prototype for this object(instance of class)
+// SEE ON PICTURE
+//    <img src="./pictures/instance of class.png" alt=""></img>
+
+//Obj firstComment dont have method "upVote()" but in prototype HAS
+//  method "upVote()" is on level class Comment and this method will be
+// adopted by all instances of this class
+// so we can call this method on obj firstComment.upVote()
+firstComment.upVote() // method upVote increase value of property votesQty on 1 (+=1)
+console.log(firstComment); // {text: 'First Comment', votesQty: 1}
+//So to work with new obj we don't need add method upVote(), cause we already got it
+            </p>
+            <h2>inheritance through the prototype chain so obj firstComment
+                adopt property of class and all property of his prototype "Object"
+                Which We can use now 
+            </h2>
+            <h3>for Example: prototype Object is global in js with his special methods and properties</h3>
+   <h3>how to find out if an instance belongs(ПРИНАДЛЕЖИТ) to an object</h3>
+   <img src="./pictures/Class creation in console.png" alt="">
+   <p>
+    class Comment { 
+    constructor(text) {
+        this.text = text  
+        this.votesQty = 0
+    }
+    upVote() {              
+        this.votesQty += 1 
+        // property(key) - votesQty
+    }
+}
+const firstComment = new Comment('First Comment') 
+
+// console.log(firstComment instanceof Comment); // true
+// console.log(firstComment instanceof Object); // true
+// console.log(firstComment); // {text: 'First Comment', votesQty: 0}
+// firstComment.upVote()
+// console.log(firstComment); // {text: 'First Comment', votesQty: 1}
+// firstComment.upVote()
+// console.log(firstComment); // { text: 'First Comment', votesQty: 2 }
+// // here this reference to exactly this obj if another variable
+// //for example "secondComment", "this" will referenced to that obj(instance of class Comment)
+   </p>
+   <h2>//whose property is this?</h2>
+   <h3>Properties (keys) in JavaScript can be either own(СОБСТВЕННЫЕ) or
+     inherited(УНАСЛЕДОВАННЫЕ) from the class of this instance.To get information,
+    I can use method hasOwnProperty()</h3>
+    <p>
+        class Comment { 
+    constructor(text) {
+        this.text = text                // this property will be own to firstComment
+        this.votesQty = 0               // this property will be own to firstComment
+    }
+    upVote() {              
+        this.votesQty += 1     // // this property will be in prototype for firstComment
+    }
+}
+const firstComment = new Comment('First Comment') 
+
+console.log(firstComment.hasOwnProperty('text')); // true // property "text" must be in string //
+console.log(firstComment.hasOwnProperty('votesQty')); // true
+console.log(firstComment.hasOwnProperty('upVote')); // false
+console.log(firstComment.hasOwnProperty('hasOwnProperty')); // false // cause hasOwnProperty() is method 
+                                                                        //firstComment's prototype "Object"
+    </p>
+    <h3>creating multiple instances</h3>
+    <p>
+        class Comment { 
+    constructor(text) {
+        this.text = text   
+        this.votesQty = 0  
+    }
+    upVote() {              
+        this.votesQty += 1     
+    }
+}
+const firstComment = new Comment('First Comment')
+const secondComment = new Comment('Second Comment')
+const thirdComment = new Comment('Third Olga Comment')
+
+
+firstComment.upVote()
+firstComment.upVote()
+firstComment.upVote()
+console.log(firstComment); // {text: 'First Comment', votesQty: 3}
+
+secondComment.upVote()
+secondComment.upVote()
+console.log(secondComment); // {text: 'Second Comment', votesQty: 2}
+
+thirdComment.upVote()
+console.log(thirdComment); // {text: 'Third Olga Comment', votesQty: 1}
+    </p>
+    <h2>STATIC METHODS</h2>
+    <h3>Static Method available as property(key) of class and will not inherited by instances</h3>
+    <p>
+        class Comment { 
+    constructor(text) {
+        this.text = text   
+        this.votesQty = 0  
+    }
+    upVote() {              
+        this.votesQty += 1           // //this method is availabale in all instancesof this class
+    }
+
+    static mergeCommencts(first, second) {  //this method is not availabale in instance only on this class
+        return `${first}${second}`
+    }
+}
+
+Comment.mergeCommencts('First Comment', 'Olga`s Comment')
+
+const mySuperComment = new Comment('Super Comment')
+console.log(mySuperComment);   // Comment { text: 'Super Comment', votesQty: 0 }
+                                // mySuperComment don't have method mergeCommencts at all
+    </p>
+    <h2>Class extending</h2>
+    <p>
+    // class NumbersArray extends Array {
+//     sum() {
+//         return this.reduce((acc, el) => acc += el, 0)
+//     }
+// }
+// const myArray = new NumbersArray(1, 3, 6)
+// console.log(myArray);// NumbersArray(3)[1, 3, 6] with prototype Array
+// console.log(myArray.sum()); // 10
+// <h4>class chain is: myArray => NumbersArray => Array => Object</h4>
+// SO EACH Instance( like myArray) of class(NumbersArray) inherites all methods NumbersArray, Array, and Object
+========================================================================================================
+// найти счастливое число в масивеб то которе повторяется количство раз которое равно ему самому
+
+const myArray = [150, 150, 1, 1, 3, 3, 3, 4, 5, 5, 6, 7, 'abc', 7]
+const count = myArray.reduce((acc, el) => {
+    acc[el] = (acc[el] || 0) + 1;
+    return acc
+}, [])
+
+console.log(count);
+const luckyValue = count.find((el, idx) => el === idx)
+console.log(luckyValue);
+
+
+
+//===========================================================
+
+
     </p>
 
     </div>
+    <div>
+        <h2>What 'PROTOTYPE' is it?</h2>
+        <h4>Each class's instance has property(key) which is hidden (__proto__).Thanks to this property we have ability to created
+            Prototypal Inheritance.This all give us oportunity to say that JS is Object-Oriented Programming language
+        </h4>
+    </div>
+    <div>
+        <h2>
+            Promises
+        </h2>
+        <h3>Promises give oportunity to hanlde events which are deferred(ОТЛОЖЕНЫ) in time</h3>
+        <h4>"Promise" is promise return result later in future.Promise can return error if result is not availabale</h4>
+        <p>
+            Promise can return or resul or error.So promise has 3 conditions: pending, resolve, rejected
+        </p>
+    </div>
+</div>
     <script type="module" src="./index.js"></script>
+
 </body>
 </html>
