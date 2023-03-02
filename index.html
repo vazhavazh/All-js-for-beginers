@@ -1851,8 +1851,184 @@ console.log(luckyValue);
             Promise is Object
             Promise can return or result or error.So promise has 3 conditions: pending, resolve, rejected.
             Promise creation:
-            09:48:57
+            //Promise is object
+
+const myPromise = new Promise((resolve, reject) => {
+    //**
+    // Execution of asynchronous actions(ВЫПОЛНЕНИЕ АСИНХРОННЫХ ДЕЙСТВИЙ)
+    // Inside this function, you need to call one of the functions as a result: resolve() or reject()
+    
+})
+console.log(myPromise);// Promise {<pending>} // myPromise is new instance of class Promise
+// only created promise will be in condtion pending
+// after promise fulfilled it become in condtion or resolve or reject so we can work with value that we recieved in promise
+//like some API fetch to us some data
+// to get the result of promise we use .then() and .catch()
+//as myPromise is promise 
+myPromise
+    .then(value => {
+    // Actionns if promise fulfilled successful(become resolved)
+    // transitioned to the resolved state (перешло в состояние resolve)
+      //In the 'then' method, the 'value' parameter represents the value that was passed to the
+      //'resolve' function when the promise was fulfilled.
+      //When the promise is successfully fulfilled(or resolved),
+      //the 'value' parameter will contain the value that was passed to the 'resolve' function call as argument
+})
+    .catch(error => {
+    // // Actionns if promise fulfilled negative(become rejected);
+        //error is the value that was passed to the 'reject function' as argument
+        
+    })
+
+
+
+
+    /////////////////////========================================================================================
+//     В методе 'then' параметр 'value' представляет собой значение, которое было передано в функцию
+// 'resolve' при выполнении обещания(promise).Когда обещание успешно выполнено(или разрешено),
+//     параметр 'value' будет содержать значение, переданное в вызов функции 'resolve'.
+
+//     Например, если у вас есть следующий код:
+
+// const myPromise = new Promise((resolve, reject) => {
+//     setTimeout(() => {
+//         resolve("Promise resolved!"); // передаём значение "Promise resolved!" в resolve()
+//     }, 2000);
+// });
+
+// myPromise.then(value => {
+//     console.log(value); // выводим значение параметра value в консоль
+// });
+// После 2 секунд в консоль будет выведено "Promise resolved!",
+// которое было передано в вызов функции 'resolve'.
+// Затем это значение было передано в функцию обратного вызова(callback function) 'then' в качестве параметра 'value'.
+
+//======================================================================================================================
         </p>
+    </div>
+    <div>
+        <h2>getting data from API with fetch </h2>
+        <h4>
+            // fetch('https://jsonplaceholder.typicode.com/todos')
+//     .then(response => response.json()) 
+//     .then(json => console.log(json))
+//     .catch(error => console.log(error.message))
+
+    //       json() also return promise because need time to parse response from server
+
+    //=============================================================================================================
+    //SIMPLE fetch with Promises (POPULAR !!!!)
+// const getData = (url) =>
+//     new Promise((resolve, reject) =>
+// fetch(url)
+//     .then(response => response.json())
+//     .then(json => resolve(json))
+//             .catch(error => reject(error))
+//     )
+
+// getData('https://jsonplaceholder.typicode.com/todos')
+//     .then(data => console.log(data))
+//     .catch(error => console.log(error.message))
+
+    // const getData is arrow function which use "implicit return" to return new instance of class Promise,
+    // As arguments this instance recieve two callback function resolve and reject 
+    //and after also will return by "implicit return" 
+    // first function resolve() will executed if all ok and we have response // and as it is also promise //
+    // we can make chain + 2 then
+    // if not ok, we will catch error in console
+        </h4>
+    </div>
+    <div>
+        <h2>
+            ASYNC/AWAIT
+        </h2>
+        <h3>
+         1)  ASYNC/AWAIT is special syntax for more comfortable working with promise 
+        2) await syntax enable only in "async"
+        3) async function always return Promise
+        4) async function awaiting result of await' statement and not executing next statements
+        5) this "promises" are not blocking, during await time JS can make another operation 
+        // for example executed some operations if "user" click on button
+        </h3>
+        <h4>asynchronous function is function that return PROMISE instead of undefined
+            To create like this function we use special key async
+        </h4>
+        <p>
+            async function asyncFn() {
+    // always return promise
+}
+
+const asyncFn1 = async () => {
+  //  always return promise
+}
+
+// key word async stands before function or function expression
+        </p>
+        <p>
+            // const asyncFn = async () => {
+//     return 'Success'
+// }
+// asyncFn()
+//     .then(value => console.log(value)) // 'Success' // // instantly resolved  // with out request
+
+
+//=================================================================================
+
+const asyncFn = async () => {
+    throw new Error('It is my error')
+}
+asyncFn()
+    .then(value => console.log(value))
+    .catch(error => console.log(error.message)) // It is my error
+
+   // instantly rejected // with out request
+
+        </p>
+        <h3>AWAIT works only with ASYNC</h3>
+       <h3>awaiting result from "await"</h3>
+       <p>
+        const timerPromise = () =>
+    new Promise((resolve, reject) => 
+        setTimeout(() => resolve(), 2000)) // until 2000 ms promise will be resolved
+
+const asyncFn = async () => {
+    console.log('Timer Starts')
+    const startTime = performance.now() // method performance() we can tracking time
+    await timerPromise()    // timerPromise is not executing until result of of promise
+                            // received (resolve or reject)
+    const endTime = performance.now()
+    console.log('Timer Ended', endTime - startTime)
+}
+asyncFn() 
+
+// Timer Starts
+// Timer Ended 2002.6000000000931
+       </p>
+       <h2>  //SIMPLE fetch with ASYNC/AWAIT (POPULAR !!!!)</h2>
+       <p>
+        // const getData = async (url) => {
+//     const result = await fetch(url)
+//     const json = await result.json()
+//     return json
+// }
+
+// getData('https://jsonplaceholder.typicode.com/todos')
+//     .then(data => console.log(data))
+//     .catch(error => console.log(error.message))
+
+    
+//     in this asynchronous arrow function inside variable getData,
+// we first wait for the execution or rejection, of the promise that will be returned by the fetch() function.
+// Thanks to the "await" keyword, we wait for the promise to be executed and assign the result of that execution to the variable result.
+// Then we call the.json() method on it, which takes a :response" stream and reads it to the end.
+// It returns a promise that resolves to the parsed body of the response as a JSON string.
+// And with this value that we are waiting for in the json variable, we can work with it and return it for further use.
+
+
+//============================================================================================================
+       </p>
+       <h3>Handling errors in async await with try/catch</h3>
+
     </div>
 </div>
     <script type="module" src="./index.js"></script>
